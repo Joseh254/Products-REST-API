@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "start:watch": "nodemon index.js"
+    "start": "node ./src/index.js",
+    "start:watch": "nodemon ./src/index.js"
   },
   "keywords": [],
   "author": "",
