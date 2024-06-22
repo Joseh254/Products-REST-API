@@ -1,9 +1,10 @@
 import express, { request, response } from 'express';
+import products from './data.js';
 
 const app = express();
 // **************************************************************
 function getAllProducts(request,response){
-    response.send("getting all products")
+    response.status(404).json(products);
 }
 app.get("/products", getAllProducts)
 // ***************************************************************
@@ -12,13 +13,13 @@ function createProducts(request,response){
 }
 app.post("/products",createProducts)
 // ***************************************************************
-function updateProducts(){
+function updateProducts(request,response){
     response.send("updating products")
 }
 app.patch("/products",updateProducts)
 // **************************************************************
 function deleteProducts(request,response){
-    response.send("deliting a products")
+    response.send("deleting a products")
 }
 app.delete("/products",deleteProducts)
 // ***************************************************************
