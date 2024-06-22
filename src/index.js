@@ -1,9 +1,9 @@
-import express, { request, response } from 'express';
-import products from './data.js';
+import express from 'express';
+import productsRouter from './routes/products.route.js'
 
 const app = express();
 // **************************************************************
-
+app.use('/products',productsRouter)
 
 app.listen(3000, () => {
   console.log("App running on port 3000...");
