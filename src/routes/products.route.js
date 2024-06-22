@@ -35,7 +35,12 @@ async function getSingleProduct(request, response) {
     const id = request.params.id;
     try {
         const SingleProduct = await pool.query("SELECT * FROM productsTable WHERE id=$1", [id]);
-        response.json(SingleProduct.rows);
+        if(SingleProduct.rowCount==0){
+            response.status(404).json({success:false, message:error.message})
+        }
+        else{
+            response.json({success:true, data:SingleProduct.rows[0]})
+        }
     } catch (error) {
         response.status(500).json({ message: error.message });
     }
