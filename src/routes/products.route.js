@@ -1,4 +1,4 @@
-import {Router} from 'express'
+import {Router, request, response} from 'express'
 import pool from '../database.configure.js';
 const router = Router()
 
@@ -31,10 +31,18 @@ function deleteProducts(request,response){
 router.delete("/:id",deleteProducts)
 // ***************************************************************
 
-router.get("/:id", (request, response) => {
-    const product = products.filter(product=>product.id == request.params.id)
-    response.send(product)
-// ***************************************************************
-});
+async function getSingleProduct(request, response) {
+    const id = request.params.id;
+    try {
+        const SingleProduct = await pool.query("SELECT * FROM productsTable WHERE id=$1", [id]);
+        response.json(SingleProduct.rows);
+    } catch (error) {
+        response.status(500).json({ message: error.message });
+    }
+}
+
+router.get("/:id", getSingleProduct);
+
+
 
 export default router;
