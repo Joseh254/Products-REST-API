@@ -15,8 +15,25 @@ async function getAllProducts(request,response){
 }
 router.get("", getAllProducts)
 // ***************************************************************
-function createProducts(request,response){
-    response.send("creating a products")
+async function createProducts(request,response){
+    try {
+
+			const productname=request.body.productname;
+			const productdescription=request.body.productdescription;
+			const productprice= request.body.productprice;
+			const productimage =request.body.productimage;
+			const productnoffer=request.body.productonoffer;
+
+
+		
+        const insert = await pool.query('INSERT INTO productsTable(productname,productdescription,productprice,productimage,productonoffer) VALUES($1, $2, $3, $4, $5)',[productname,productdescription,productprice,productimage,productnoffer]);
+        if(insert.rowCount==1)
+            response.status(201).json({message:"user created succesfuly"}) 
+       
+    } 
+    catch (error) {
+        request.send(500).json({success:false,message:error.message})
+    }
 }
 router.post("",createProducts)
 // ***************************************************************
@@ -25,10 +42,23 @@ function updateProducts(request,response){
 }
 router.patch("/:id",updateProducts)
 // **************************************************************
-function deleteProducts(request,response){
-    response.send("deleting a products")
+async function deleteProduct (request,response){
+    const id = request.params.id
+    try {
+    const deleteProduct_ = await  pool.query("DELETE FROM productsTable  WHERE id=$1",[id])
+    // response.send(deleteProduct_) 
+    if(deleteProduct_.rowCount===1){
+        response.status(200).json({success:true, message:"Product deleted succesfuly"})
+    }else{
+        response.status(500).json({success:false, message:error.message})
+    }
+        
+
+    } catch (error) {
+        response.status(400).json({success:false, message:"invalid product"})
+    }
 }
-router.delete("/:id",deleteProducts)
+router.delete("/:id",deleteProduct)
 // ***************************************************************
 
 async function getSingleProduct(request, response) {
