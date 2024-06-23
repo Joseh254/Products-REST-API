@@ -9,7 +9,7 @@ This is a simple Products REST API built with Node.js, Express, and PostgreSQL.
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ## Installation
 
@@ -59,5 +59,43 @@ const pool = new pg.Pool({
     database: process.env.DB_DATABASE
 });
 
-export default pool;
+export default pool;  
+```  
+## USAGE  
+Run the command below to start your server
+```
+npm start:watch
+
+```  
+Server should now be running on http://localhost:3000.  
+
+# API Endpoints  
+## Get All Products  
+use URL: localhost:3000/products  
+Method: GET in insomnia to get all products  
+ 
+
+##  Create a Product
+use URL: localhost:3000/products  
+Method: POST and provide your data to create a product.  
+Ensure to include everything in the fields else it will throw an error  
+
+## Update a Product
+use URL: localhost:3000/products/3  
+Method: PATCH to update the product.  
+choose any id of existing data in the table  
+
+## Delete a Product
+use URL: localhost:3000/products/3 
+Method: DELETE to delete a product of your choice  
+
+
+## Contributing
+Fork the repository  
+Create your feature branch (git checkout -b feature/AmazingFeature)  
+Commit your changes (git commit -m 'Add some AmazingFeature')  
+Push to the branch (git push origin feature/AmazingFeature)  
+Open a pull request  
+
+
 
