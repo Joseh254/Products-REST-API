@@ -87,8 +87,16 @@ choose any id of existing data in the table
 
 ## Delete a Product
 use URL: localhost:3000/products/3 
-Method: DELETE to delete a product of your choice  
+Method: DELETE to delete a product of your choice 
 
+## get products with offer 
+use URL: http://localhost:3000/products/offer/true  
+Method: GET  to get products with offer  
+
+## get products without offer  
+
+use URL: http://localhost:3000/products/offer/false  
+Method: GET  to get products without offer  
 
 ## Contributing
 Fork the repository  
