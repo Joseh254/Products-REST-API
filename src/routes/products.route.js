@@ -1,4 +1,4 @@
-import {Router, request, response} from 'express'
+import e, {Router, request, response} from 'express'
 import pool from '../database.configure.js';
 const router = Router()
 
@@ -37,8 +37,63 @@ async function createProducts(request,response){
 }
 router.post("",createProducts)
 // ***************************************************************
-function updateProducts(request,response){
-    response.send("updating products")
+async function updateProducts(request,response){
+   const {productname, productdescription, productprice,productimage,productonoffer}= request.body;
+   const id = request.params.id;
+   try {
+    let updateproduct;
+    if(productname)
+    {updateproduct= await pool.query("UPDATE productsTable SET productname =$1 WHERE id=$2",[productname,id])
+        if(updateproduct.rowCount==1){
+            response.send(200).json({success:true, message:"Product name updates succesfuly"})
+        }
+        else{
+            response.status(400).json({success:false, message:"invalid product "})
+        }
+}
+    if(productdescription)
+        {
+            updateproduct= await pool.query("UPDATE productsTable SET productdescription = $1 WHERE id =$2",[productdescription,id])
+            if(updateproduct.rowCount==1){
+                response.status(200).json({success:true, message:"Product description updated succesfuly"})
+            }
+            else{
+                response.status(400).json({success:false, message:"invalid product"})
+            }
+        }
+    if(productprice){
+        updateproduct = await pool.query("UPDATE productsTable SET productprice= $1 WHERE id=$2",[productprice,id])
+
+        if (updateproduct.rowCount==1){
+            response.status(200).json({success:true, message: "product price updated succesfuly"})
+        }
+        else{
+            response.status(400).json({success:false, message:"invalid product"})
+        }
+    }
+
+    if(productimage){
+        updateproduct = await pool.query("UPDATE productsTable SET productimage = $1 WHERE id = $2",[productimage,id])
+        if(updateproduct.rowCount==1){
+            response.status(200).json({success:true, message:"product image updated succesfuly"})
+            
+        }
+        else{
+            response.status(400).json({success:false, message:"invalid product"})
+        }
+    }
+
+    if(productonoffer){
+        updateproduct = await pool.query("UPDATE productsTable SET productonoffer = $1 WHERE id = $2",[productonoffer,id])
+        if(updateproduct.rowCount==1){
+            response.status(200).json({success:true, message:'product on offer updated succsesfuly'})
+        }else{
+            response.status(400).json({success:false, message:"invalid product"})
+        }
+    }
+   } catch (error) {
+        response.status(400).json({success:false, message:error.message}) 
+   }
 }
 router.patch("/:id",updateProducts)
 // **************************************************************
@@ -50,7 +105,7 @@ async function deleteProduct (request,response){
     if(deleteProduct_.rowCount===1){
         response.status(200).json({success:true, message:"Product deleted succesfuly"})
     }else{
-        response.status(500).json({success:false, message:error.message})
+        response.status(500).json({success:false, message:error.message}) 
     }
         
 
