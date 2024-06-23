@@ -35,6 +35,7 @@ export async function createProducts(request,response){
         request.send(500).json({success:false,message:error.message})
     }
 }
+
 // ***************************************************************************************
 export async function updateProducts(request,response){
     const {productname, productdescription, productprice,productimage,productonoffer}= request.body;
