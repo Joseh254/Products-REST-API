@@ -97,5 +97,7 @@ Commit your changes (git commit -m 'Add some AmazingFeature')
 Push to the branch (git push origin feature/AmazingFeature)  
 Open a pull request  
 
+*By joseph Mbugua  &copy; all rights reserved*
+
 
 
