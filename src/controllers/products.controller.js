@@ -130,3 +130,17 @@ export async function getSingleProduct(request, response) {
         response.status(500).json({ message: error.message });
     }
 }
+
+export async function getproductswithoffer(request, response) {
+    const offerr = request.params.offerr;
+    try {
+        const offer = await pool.query("SELECT * FROM productsTable WHERE productonoffer = $1", [offerr]);
+        if (offer.rowCount > 0) {
+            response.status(200).json({ success: true, data: offer.rows });
+        } else {
+            response.status(404).json({ success: false, message: "No products found with the given offer status" });
+        }
+    } catch (error) {
+        response.status(500).json({ success: false, message: error.message });
+    }
+}
